@@ -22,7 +22,8 @@ ZSH_INCLUDES=(
 
 # Sync
 
-echo -e "${PURPLE}Syncing .zshrc gist...${RESET_COLOUR}"
+echo ""
+echo -e "${BLUE}ℹ${RESET_COLOUR} Syncing ${PURPLE}.zshrc${RESET_COLOUR} gist…"
 
 GITHUB_TOKEN=$(retrieve_github_token)
 
@@ -47,4 +48,4 @@ done
 
 upload_gist "$GIST_ID_ZSHRC" "$payload" "$GITHUB_TOKEN"
 
-echo -e "${GREEN}✓ .zshrc gist updated.${RESET_COLOUR}"
+echo -e "${GREEN}✓ ${PURPLE}.zshrc${RESET_COLOUR} gist updated."

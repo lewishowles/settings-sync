@@ -13,7 +13,8 @@ source "$(dirname "$0")/gist-common.sh"
 
 # Sync
 
-echo -e "${PURPLE}Syncing snippets gist...${RESET_COLOUR}"
+echo ""
+echo -e "${BLUE}ℹ${RESET_COLOUR} Syncing ${PURPLE}snippets${RESET_COLOUR} gist…"
 
 GITHUB_TOKEN=$(retrieve_github_token)
 
@@ -36,4 +37,4 @@ done
 
 upload_gist "$GIST_ID_SNIPPETS" "$payload" "$GITHUB_TOKEN"
 
-echo -e "${GREEN}✓ Snippets gist updated.${RESET_COLOUR}"
+echo -e "${GREEN}✓ ${PURPLE}snippets${RESET_COLOUR} gist updated."
