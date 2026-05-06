@@ -56,7 +56,7 @@ The `.env` file controls where files are synced to and how they're retrieved.
 ### Configuration Variables
 
 | Variable | Purpose |
-| --- | --- | --- |
+| --- | --- |
 | `GITHUB_USERNAME` | Your GitHub username |
 | `OP_TOKEN_REFERENCE` | 1Password vault path to GitHub token |
 | `GIST_ID_SNIPPETS` | Gist ID for VSCode snippets |
