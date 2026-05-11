@@ -1,13 +1,12 @@
-# gist-sync
+# settings-sync
 
-Automatically syncs global, re-usable configuration files to GitHub Gists.
+Keeps global configuration files in sync with version-controlled repos.
 
 ## What gets synced
 
 | Script | Configuration | Contents |
 | --- | --- | --- |
-| `gist-sync-zshrc.sh` | `GIST_ID_ZSHRC` in `.env` | `.zshrc` and included settings files |
-| `gist-sync-snippets.sh` | `GIST_ID_SNIPPETS` in `.env` | All `.json` files from snippets directory |
+| `settings-sync-snippets.sh` | `SNIPPETS_DIR`, `VSCODE_CONFIG_DIR` in `.env` | VS Code snippet `.json` files |
 
 ## Setup
 
@@ -31,54 +30,49 @@ Create a GitHub personal access token with the `gist` scope at <https://github.c
 chmod +x /path/to/directory/*.sh
 ```
 
-### 5. Configure gist-sync
+### 5. Configure settings-sync
 
 Copy `.env.example` to `.env` and customise with your values:
 
 ```bash
 cp /path/to/directory/.env.example /path/to/directory/.env
-# Edit .env with your GitHub username, 1Password reference, and gist IDs
 ```
 
-**Note:** `.env` is git-ignored and should never be committed, as it contains your personal gist IDs and 1Password references.
+**Note:** `.env` is git-ignored and should never be committed, as it contains your personal 1Password references.
 
 ### 6. Add the aliases to `.zshrc` (optional)
 
 ```bash
-alias gist:sync="/path/to/directory/gist-sync.sh"
-alias goto:gist-sync="cd /path/to/directory/
+alias sync:settings="/path/to/directory/settings-sync.sh"
+alias goto:settings-sync="cd /path/to/directory"
 ```
 
 ## Configuration
 
-The `.env` file controls where files are synced to and how they're retrieved.
+The `.env` file controls where files are synced from and to.
 
-### Configuration Variables
+### Configuration variables
 
 | Variable | Purpose |
 | --- | --- |
 | `GITHUB_USERNAME` | Your GitHub username |
 | `OP_TOKEN_REFERENCE` | 1Password vault path to GitHub token |
-| `GIST_ID_SNIPPETS` | Gist ID for VSCode snippets |
-| `GIST_ID_ZSHRC` | Gist ID for .zshrc and settings |
-| `SNIPPETS_DIR` | VSCode snippets directory |
-| `ZSHRC_PATH` | Path to .zshrc file |
-| `ZSH_SETTINGS_DIR` | Directory containing zsh settings |
+| `SNIPPETS_DIR` | VS Code snippets directory |
+| `VSCODE_CONFIG_DIR` | VS Code configuration repo directory |
 
 ## Usage
 
 ```bash
-gist:sync
+sync:settings
 ```
 
 Runs all sync scripts in sequence. Individual scripts can also be run directly if needed.
 
 ## Adding a new sync target
 
-1. Create a new `gist-sync-<name>.sh` script:
-   - Load `.env` at the top (see existing scripts for pattern)
-   - Source `gist-common.sh` for token retrieval and upload helper
-   - Define a new gist ID variable (e.g., `GIST_ID_MYCONFIG`)
-2. Add a new variable to `.env.example` and `.env` for the gist ID
-3. Add a call to the script in `gist-sync.sh`
-4. Update the "What gets synced" table in `README.md`
+1. Create a new `settings-sync-<name>.sh` script:
+   - Source `support/colours.sh` and `.env` at the top (see existing scripts for pattern)
+   - Copy or process the relevant files into the destination repo
+2. Add any new path variables to `.env.example` and `.env`
+3. Add a call to the script in `settings-sync.sh`
+4. Update the "What gets synced" table in this README
